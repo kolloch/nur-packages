@@ -30,7 +30,7 @@ script:
  - echo "=== \e[1mEvaluating overlay\e[0m"
    nix eval -f default.nix 'overlays'
  - echo -e "=== \e[1mBuilding ci.nix buildOutputs\e[0m"
-   nix-build ci.nix -A buildOutputs
+   nix-build ci.nix -A buildOutputs --arg nixpkgs '<nixpkgs>'
 
 after_success:
   - if [ -n "${CACHIX_CACHE}" ]; then
