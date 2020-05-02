@@ -33,8 +33,11 @@ script:
  - nix-build ci.nix -A buildOutputs
 
 after_success:
-  - echo "Pushing artifacts to cachix"
-  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
-  - echo "Triggering NUR update"
+  - if [ -n "${CACHIX_CACHE}" ]; then
+      echo "=== \e[1mPushing artifacts to cachix\e[0m"
+      nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"
+      fi
   - if [ "cron" != "${TRAVIS_EVENT_TYPE}" -a "false" = "${TRAVIS_PULL_REQUEST}" -a "master" = "${TRAVIS_BRANCH}" ]; then
-      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+      echo "=== \e[1mTriggering NUR update\e[0m"
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"
+      fi
