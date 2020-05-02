@@ -6,13 +6,24 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ sources ? import ./nix/sources.nix
+, nixpkgs ? sources.nixpkgs
+, pkgs ? import nixpkgs {}
+, nixTestRunnerSrc ? sources.nix-test-runner
+, nixTestRunner ? pkgs.callPackage nixTestRunnerSrc {}
+}:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = pkgs.callPackage ./lib { inherit nixTestRunner; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+
+  tests = pkgs.lib.callPackageWith
+    (pkgs // { inherit sources; nurKollochLib = lib; } )
+    ./tests {};
+
+  nix-test-runner = nixTestRunner.package;
 
   # Packages.
   # example-package = pkgs.callPackage ./pkgs/example-package { };
