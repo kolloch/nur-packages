@@ -6,11 +6,11 @@ on:
     - cron:  '*/15 * * * *'
 
 jobs:
-  name: "niv-update"
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      source: [ nixpkgs ]
+  niv-update:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        source: [ nixpkgs ]
     steps:
       - uses: actions/checkout@v2
       - uses: cachix/install-nix-action@v8
@@ -26,4 +26,3 @@ jobs:
           else
             echo no changes
           fi
-
