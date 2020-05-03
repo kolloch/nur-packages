@@ -16,9 +16,14 @@ jobs:
       - uses: cachix/install-nix-action@v8
       - run: nix-env -iA nixos.niv
       - run: niv update ${{source}}
-      - run: |
-        git config --local user.email 'info@eigenvalue.net'
-        git config --local user.name 'Peter Kolloch, Bot'
-        git commit -m 'niv update ${{source}}' -a
-        git push
+      - name: Push Changes
+        run: |
+          if test -n "$(git status --porcelain)"; then
+            git config --local user.email 'info@eigenvalue.net'
+            git config --local user.name 'Peter Kolloch, Bot'
+            git commit -m 'niv update ${{source}}' -a
+            git push
+          else
+            echo no changes
+          fi
 
