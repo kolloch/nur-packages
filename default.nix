@@ -11,6 +11,7 @@
 , pkgs ? import nixpkgs {}
 , nixTestRunnerSrc ? sources.nix-test-runner
 , nixTestRunner ? pkgs.callPackage nixTestRunnerSrc {}
+, crate2nixSrc ? sources.crate2nix
 }:
 
 rec {
@@ -19,15 +20,13 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # Integration tests.
   tests = pkgs.lib.callPackageWith
     (pkgs // { inherit sources; nurKollochLib = lib; } )
     ./tests {};
 
-  nix-test-runner = nixTestRunner.package;
-
   # Packages.
-  # example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  nix-test-runner = nixTestRunner.package;
+  crate2nix = pkgs.callPackage crate2nixSrc {};
 }
 
