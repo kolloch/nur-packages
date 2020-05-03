@@ -26,7 +26,13 @@ rec {
     ./tests {};
 
   # Packages.
-  nix-test-runner = nixTestRunner.package;
-  crate2nix = pkgs.callPackage crate2nixSrc {};
+  nix-test-runner = nixTestRunner.package.overrideAttrs(attrs: {
+    # Uses import from derivation which NUR does not support.
+    meta.broken = true;
+  });
+  crate2nix = (pkgs.callPackage crate2nixSrc {}).overrideAttrs(attrs: {
+    # Uses import from derivation which NUR does not support.
+    meta.broken = true;
+  });
 }
 

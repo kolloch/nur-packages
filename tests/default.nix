@@ -2,7 +2,8 @@
 
 rec {
   # Causes ci.nix to recurse into the tests.
-  recurseForDerivations = true;
+  # Disabled because NUR does not like import from derivation.
+  # recurseForDerivations = true;
 
   myFixedOutputDerivation =
     pkgs.runCommand
