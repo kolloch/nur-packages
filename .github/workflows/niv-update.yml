@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        source: [ nixpkgs crate2nix nix-test-runner ]
+        source: [ nixpkgs, crate2nix, nix-test-runner ]
     steps:
       - uses: actions/checkout@v2
       - uses: cachix/install-nix-action@v8
