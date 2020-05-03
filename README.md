@@ -20,7 +20,7 @@ let myFixedOutputDerivation = pkgs.stdenv.mkDerivation {
   outputHashMode = "recursive";
 };
 in
-nur.repos.kolloch.lib.rerunFixedDerivationOnChange myFixedOutputDerivation;
+nur.repos.kolloch.lib.rerunFixedDerivationOnChange myFixedOutputDerivation
 ```
 
 Usually, fixed output derivations are only rerun if their name or hash
