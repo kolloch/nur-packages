@@ -17,8 +17,8 @@ jobs:
       - run: nix-env -iA nixos.niv
       - run: niv update ${{source}}
       - run: |
-        git config --local user.email "info@eigenvalue.net"
-        git config --local user.name "Peter Kolloch, Bot"
-        git commit -m "niv update ${{source}}" -a
+        git config --local user.email 'info@eigenvalue.net'
+        git config --local user.name 'Peter Kolloch, Bot'
+        git commit -m 'niv update ${{source}}' -a
         git push
 
