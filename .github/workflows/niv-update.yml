@@ -6,7 +6,7 @@ on:
     - cron:  '*/15 * * * *'
 
 jobs:
-  name: niv-update ${{ matrix.source }}
+  name: "niv-update"
   runs-on: ubuntu-latest
   strategy:
     matrix:
