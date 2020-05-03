@@ -16,7 +16,7 @@ jobs:
       - uses: cachix/install-nix-action@v8
       - uses: cachix/cachix-action@v6
         with:
-          name: mycache
+          name: eigenvalue
           signingKey: '${{ secrets.CACHING_SIGNING_KEY }}'
       - run: nix-env -iA nixpkgs.niv
       - run: niv update ${{matrix.source}}
