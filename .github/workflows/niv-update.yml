@@ -3,7 +3,7 @@ name: niv-update
 on:
   push:
   schedule:
-    - cron: '0 37 10-17 * * ?'
+    - cron: '37 37 10-17 * * *'
 
 jobs:
   niv-update:
