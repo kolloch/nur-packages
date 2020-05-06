@@ -9,9 +9,7 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ sources ? import ./nix/sources.nix
-, nixpkgs ? sources.nixpkgs
-, pkgs ? import nixpkgs {}
+{ pkgs ? import <nixpkgs> {}
 }:
 
 with builtins;

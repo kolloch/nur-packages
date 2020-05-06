@@ -1,19 +1,13 @@
 { pkgs, lib }:
 
-let sources = import ../../nix/sources.nix;
-    cargoNix = pkgs.callPackage ./generated/Cargo.nix {};
+let cargoNix = pkgs.callPackage ./generated/Cargo.nix {};
 in
 {
-  source =
-    let
-      sources = import ../../nix/sources.nix;
-      # Trying to work around weird restrictions in nur packages.
-      repo = builtins.fetchGit {
-        name = "nix-test-runner-source";
-        url = "https://github.com/stoeffel/nix-test-runner.git";
-        inherit (sources.nix-test-runner) rev;
-      };
-    in repo;
+  source = builtins.fetchGit {
+    name = "nix-test-runner-source";
+    url = "https://github.com/stoeffel/nix-test-runner.git";
+    rev = "c45d45b11ecef3eb9d834c3b6304c05c49b06ca2";
+  };
   package = cargoNix.workspaceMembers.nix-test-runner.build.overrideAttrs (attrs: {
     meta = {
         description = "Nix build file generator for rust crates.";

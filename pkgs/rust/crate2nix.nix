@@ -5,12 +5,11 @@ in
 {
   source =
     let
-      sources = import ../../nix/sources.nix;
       # Trying to work around weird restrictions in nur packages.
       repo = builtins.fetchGit {
         name = "crate2nix-source";
         url = "https://github.com/kolloch/crate2nix.git";
-        inherit (sources.crate2nix) rev;
+        rev = "daabda2a2044b7445f1f2e2111b58ec139d4d4b4";
       };
     in "${repo}/crate2nix";
   package = cargoNix.workspaceMembers.crate2nix.build.overrideAttrs (attrs: {
