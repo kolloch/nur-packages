@@ -44,7 +44,7 @@ jobs:
                     failed="$failed $source"
                     break
                   }
-                  git commit -m 'niv update: updated $source' -a
+                  git commit -m "niv update: updated $source" -a
 
                   nix build -f . -L buildPkgs || {
                     echo "Building packages failed. Skip updating $source."
