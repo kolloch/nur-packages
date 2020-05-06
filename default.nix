@@ -26,6 +26,13 @@ rec {
     ./tests {};
 
   # Packages.
+
+  # Ripped from https://github.com/NixOS/nixpkgs/pull/82920
+  jicofo = pkgs.callPackage ./pkgs/jitsi/jicofo {};
+  jitsi-meet = pkgs.callPackage ./pkgs/jitsi/jitsi-meet {};
+  jitsi-videobridge = pkgs.callPackage ./pkgs/jitsi/jitsi-videobridge {};
+
+  # Rest
   nix-test-runner = nixTestRunner.package.overrideAttrs(attrs: {
     # Uses import from derivation which NUR does not support.
     meta.broken = true;
