@@ -4,7 +4,16 @@ let sources = import ../../nix/sources.nix;
     cargoNix = pkgs.callPackage ./generated/Cargo.nix {};
 in
 {
-  source = sources.nix-test-runner;
+  source =
+    let
+      sources = import ../../nix/sources.nix;
+      # Trying to work around weird restrictions in nur packages.
+      repo = builtins.fetchGit {
+        name = "nix-test-runner-source";
+        url = "https://github.com/stoeffel/nix-test-runner.git";
+        inherit (sources.nix-test-runner) rev;
+      };
+    in repo;
   package = cargoNix.workspaceMembers.nix-test-runner.build.overrideAttrs (attrs: {
     meta = {
         description = "Nix build file generator for rust crates.";

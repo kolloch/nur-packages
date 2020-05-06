@@ -1,10 +1,18 @@
 { pkgs, lib }:
 
-let sources = import ../../nix/sources.nix;
-    cargoNix = pkgs.callPackage ./generated/Cargo.nix {};
+let cargoNix = pkgs.callPackage ./generated/Cargo.nix {};
 in
 {
-  source = "${sources.crate2nix}/crate2nix";
+  source =
+    let
+      sources = import ../../nix/sources.nix;
+      # Trying to work around weird restrictions in nur packages.
+      repo = builtins.fetchGit {
+        name = "crate2nix-source";
+        url = "https://github.com/kolloch/crate2nix.git";
+        inherit (sources.crate2nix) rev;
+      };
+    in "${repo}/crate2nix";
   package = cargoNix.workspaceMembers.crate2nix.build.overrideAttrs (attrs: {
     meta = {
       description = "Nix build file generator for rust crates.";
