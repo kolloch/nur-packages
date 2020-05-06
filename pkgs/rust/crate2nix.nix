@@ -12,7 +12,12 @@ in
         rev = "daabda2a2044b7445f1f2e2111b58ec139d4d4b4";
       };
     in "${repo}/crate2nix";
-  package = cargoNix.workspaceMembers.crate2nix.build.overrideAttrs (attrs: {
+
+  package = cargoNix.workspaceMembers.crate2nix.build.overrideAttrs (attrs: rec {
+    pname = "crate2nix";
+    name = "${pname}-${version}";
+    # Not necessary anymore on unstable.
+    version = attrs.crateVersion;
     meta = {
       description = "Nix build file generator for rust crates.";
       longDescription = ''

@@ -8,7 +8,11 @@ in
     url = "https://github.com/stoeffel/nix-test-runner.git";
     rev = "c45d45b11ecef3eb9d834c3b6304c05c49b06ca2";
   };
-  package = cargoNix.workspaceMembers.nix-test-runner.build.overrideAttrs (attrs: {
+  package = cargoNix.workspaceMembers.nix-test-runner.build.overrideAttrs (attrs: rec {
+    pname = "nix-test-runner";
+    name = "${pname}-${version}";
+    # Not necessary anymore on unstable.
+    version = attrs.crateVersion;
     meta = {
         description = "Nix build file generator for rust crates.";
         longDescription = ''
