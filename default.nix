@@ -10,13 +10,12 @@
 , nixpkgs ? sources.nixpkgs
 , pkgs ? import nixpkgs {}
 , nixTestRunnerSrc ? sources.nix-test-runner
-, nixTestRunner ? pkgs.callPackage nixTestRunnerSrc {}
 , crate2nixSrc ? sources.crate2nix
 }:
 
 rec {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = pkgs.callPackage ./lib { inherit nixTestRunner; }; # functions
+  lib = pkgs.callPackage ./lib { nixTestRunner = nix-test-runner; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
@@ -33,13 +32,7 @@ rec {
   jitsi-videobridge = pkgs.callPackage ./pkgs/jitsi/jitsi-videobridge {};
 
   # Rest
-  nix-test-runner = nixTestRunner.package.overrideAttrs(attrs: {
-    # Uses import from derivation which NUR does not support.
-    meta.broken = true;
-  });
-  crate2nix = (pkgs.callPackage crate2nixSrc {}).overrideAttrs(attrs: {
-    # Uses import from derivation which NUR does not support.
-    meta.broken = true;
-  });
+  nix-test-runner = (pkgs.callPackage ./pkgs/rust/nix-test-runner.nix {}).package;
+  crate2nix = (pkgs.callPackage ./pkgs/rust/crate2nix.nix {}).package;
 }
 
