@@ -9,9 +9,7 @@ jobs:
   niv-update:
     runs-on: ubuntu-latest
     env:
-      # Results in crate2nix being updated every hour!
-      # - crate2nix
-      sources: nixpkgs nix-test-runner cargo-release nixpkgs-mozilla cachix
+      sources: nixpkgs nix-test-runner crate2nix
     steps:
       - uses: actions/checkout@v2
       - uses: cachix/install-nix-action@v8
