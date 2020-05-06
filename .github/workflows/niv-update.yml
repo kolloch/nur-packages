@@ -20,7 +20,7 @@ jobs:
           name: eigenvalue
           signingKey: '${{ secrets.CACHING_SIGNING_KEY }}'
       - run: nix-env -iA nixpkgs.niv
-      - run: nix-env -iA nixpkgs.crate2nix
+      - run: nix-env -if . -A crate2nix
       - name: Update each source and push changes
         run: |
           failed=""
