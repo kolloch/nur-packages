@@ -6,11 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ sources ? import ./nix/sources.nix
-, nixpkgs ? sources.nixpkgs
-, pkgs ? import nixpkgs {}
-, nixTestRunnerSrc ? sources.nix-test-runner
-, crate2nixSrc ? sources.crate2nix
+{ pkgs ? import <nixpkgs> {}
 }:
 
 rec {
@@ -21,7 +17,7 @@ rec {
 
   # Integration tests.
   tests = pkgs.lib.callPackageWith
-    (pkgs // { inherit sources; nurKollochLib = lib; } )
+    (pkgs // { nurKollochLib = lib; } )
     ./tests {};
 
   # Packages.
