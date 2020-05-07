@@ -29,6 +29,6 @@ rec {
 
   # Rest
   nix-test-runner = (pkgs.callPackage ./pkgs/rust/nix-test-runner.nix {}).package;
-  # crate2nix = (pkgs.callPackage ./pkgs/rust/crate2nix.nix {}).package;
+  crate2nix = (pkgs.callPackage ./pkgs/rust/crate2nix.nix {}).package;
 }
 

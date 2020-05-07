@@ -6,10 +6,11 @@ in
   source =
     let
       # Trying to work around weird restrictions in nur packages.
-      repo = builtins.fetchGit {
+      repo = pkgs.fetchgit {
         name = "crate2nix-source";
         url = "https://github.com/kolloch/crate2nix.git";
         rev = "daabda2a2044b7445f1f2e2111b58ec139d4d4b4";
+        sha256 = "1wxrlsnghf7yykdpx8p3sxcka65j68szkjcdhfy4a7aasnwsv8bf";
       };
     in "${repo}/crate2nix";
 
