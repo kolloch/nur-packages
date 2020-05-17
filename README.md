@@ -32,8 +32,9 @@ documentation](https://github.com/nix-community/NUR/blob/master/README.md).
 ### Sample config
 
 ```nix
-  { config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
+{
   services.jitsi-videobridge.openFirewall = true;
 
   services.jitsi-meet = {
@@ -71,6 +72,7 @@ documentation](https://github.com/nix-community/NUR/blob/master/README.md).
       };
     };
   };
+}
 ```
 
 ## rerunOnChange for Fixed Output Derivations
