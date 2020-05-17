@@ -21,9 +21,21 @@ niv add -n kollochNurPackages kolloch-nur-packages
 ```
 
 ```nix
+{ config, pkgs, lib, ... }:
+
+{
+  imports =
     let sources = import ../nix/sources.nix;
         kollochNurPackages = import sources.kollochNurPackages {};
         kollochModules = kollochNurPackages.modules;
+    in
+    [
+      # ...
+      kollochModules.jitsi
+    ];
+
+  # ...
+}
 ```
 
 Or look at the [NUR
@@ -35,6 +47,8 @@ documentation](https://github.com/nix-community/NUR/blob/master/README.md).
 { config, pkgs, lib, ... }:
 
 {
+  # ...
+
   services.jitsi-videobridge.openFirewall = true;
 
   services.jitsi-meet = {
